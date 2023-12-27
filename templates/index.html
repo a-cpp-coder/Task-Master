@@ -1,8 +1,38 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<title> Task Master Title</title>
 {% endblock %}
 
 {%block body%}
-<h1>Template Sample</h1>
+<div class="content">   <!--division/section-->
+    <h1>Task Master</h1>
+
+    <table>
+        <tr>    <!--table row-->
+            <th>Task</th>   <!--table header-->
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content}}</td>   <!--table datacell-->
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>   <!--an empty link to send a GET http code to the server-->
+                    <br>    <!--break here to enter a newline-->
+                    <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    <div>
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">
+        </form>
+    </div>
+</div>
 {%endblock%}
